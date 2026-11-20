@@ -15,7 +15,7 @@ Aplicación web en Angular que administra la colección `productos` de **Cloud F
 | **Actualizar** | El botón *Editar* carga el producto en el formulario y guarda los cambios en el mismo documento usando su id. |
 | **Eliminar** | El botón *Eliminar* pide confirmación. Si se cancela, el producto se conserva. |
 
-Validaciones del formulario: `nombre` y `categoria` con texto (no vacío ni solo espacios), `precio` numérico mayor o igual a 0 y `stock` entero mayor o igual a 0. Si hay datos inválidos no se envía nada y se muestran mensajes. Si una operación falla, se muestra un mensaje de error.
+Validaciones del formulario: nombre (2 a 60 caracteres, con letras), categoría (solo letras y espacios), precio (número ≥ 0, máximo 2 decimales) y stock (entero ≥ 0). Si hay datos inválidos no se envía nada y se muestran mensajes. Si una operación falla, se muestra un mensaje de error.
 
 ## Modelo de producto
 ```ts
@@ -81,4 +81,5 @@ Abrir `http://localhost:4200`.
 3. Pulsar **Deploy**. El comando `npm run build` ejecuta antes `scripts/generar-env.js`, que crea `environment.ts` con esas variables.
 
 ## Sitio desplegado (Vercel)
-URL: _pegar aquí la URL pública de Vercel_
+URL: https://crud-productos-angular-firebase-ten.vercel.app/
+
