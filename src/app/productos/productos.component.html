@@ -1,0 +1,84 @@
+<div class="tarjeta">
+    <h1>CRUD de Productos con Angular y Firebase </h1>
+
+    <h2>{{ idEditando() ? 'Editar producto' : 'Nuevo producto' }}</h2>
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+        <div class="fila">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input id="nombre" type="text" formControlName="nombre" placeholder=""> @if (mostrarError('nombre')) {
+                <small class="error-campo">{{ mensajeError('nombre') }}</small> }
+            </div>
+
+            <div class="campo">
+                <label for="categoria">Categoría</label>
+                <input id="categoria" type="text" formControlName="categoria" placeholder=""> @if (mostrarError('categoria')) {
+                <small class="error-campo">{{ mensajeError('categoria') }}</small>}
+            </div>
+        </div>
+
+        <div class="fila">
+            <div class="campo">
+                <label for="precio">Precio ($)</label>
+                <input id="precio" type="number" step="any" formControlName="precio" placeholder=""> @if (mostrarError('precio')) {
+                <small class="error-campo">{{ mensajeError('precio') }}</small> }
+            </div>
+
+            <div class="campo">
+                <label for="stock">Stock</label>
+                <input id="stock" type="number" step="1" formControlName="stock" placeholder=""> @if (mostrarError('stock')) {
+                <small class="error-campo">{{ mensajeError('stock') }}</small> }
+            </div>
+        </div>
+
+        <div class="botones">
+            <button type="submit" [disabled]="guardando()">
+        {{ idEditando() ? 'Guardar cambios' : 'Crear producto' }}
+      </button> @if (idEditando()) {
+            <button type="button" class="secundario" (click)="limpiarFormulario()">Cancelar edición</button> }
+        </div>
+    </form>
+
+    @if (mensaje()) {
+    <p class="ok">{{ mensaje() }}</p>
+    } @if (error()) {
+    <p class="error">{{ error() }}</p>
+    }
+
+    <h2>Lista de productos</h2>
+
+    @if (cargando()) {
+    <p class="aviso">Cargando productos...</p>
+    } @else if (productos().length === 0 && !error()) {
+    <p class="aviso">No hay productos registrados.</p>
+    } @else if (productos().length > 0) {
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (p of productos(); track p.id) {
+                <tr>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.categoria }}</td>
+                    <td>$ {{ p.precio.toFixed(2) }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td class="acciones">
+                        <button type="button" class="editar" (click)="editar(p)">Editar</button>
+                        <button type="button" class="eliminar" (click)="eliminar(p)">Eliminar</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
